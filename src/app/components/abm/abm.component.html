@@ -1,0 +1,98 @@
+<div class="header">
+    <h1> Crear, borrar o modificar articulos </h1>
+</div>
+
+<div class="col-12" *ngIf="createOrModify">
+        <form #newArticleForm="ngForm" (ngSubmit)="onSubmit(newArticleForm)">
+            <p class="inputs">
+                <mat-form-field>
+                    <input matInput placeholder="Titulo" type="text" name="title" #title="ngModel" [(ngModel)]="newArticle.title" required/>
+                </mat-form-field>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <mat-form-field>
+                    <input matInput placeholder="Subtitulo" type="text" name="subTitle" #subTitle="ngModel" [(ngModel)]="newArticle.subTitle" required>
+                </mat-form-field>
+            </p>
+
+            <p class="textarea">
+                <mat-form-field class="text">
+                    <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="1" 
+                    cdkAutosizeMaxRows="6" placeholder="Contenido" name="content" #content="ngModel" 
+                    [(ngModel)]="newArticle.content" required>
+                    </textarea>
+                </mat-form-field>
+            </p>  
+
+            <p style="text-align: center;">
+            <input type="submit" value="Crear articulo"/>
+            </p>
+        </form>
+</div>
+
+<div class="col-12" *ngIf="!createOrModify">
+    <form #modifiedArticleForm="ngForm" (ngSubmit)="modifyArticle(modifiedArticleForm)">
+        <p class="inputs">
+            <mat-form-field>
+                <input matInput placeholder="Titulo" type="text" name="title" #title="ngModel" [(ngModel)]="modifiedArticle.title" required/>
+            </mat-form-field>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <mat-form-field>
+                <input matInput placeholder="Subtitulo" type="text" name="subTitle" #subTitle="ngModel" [(ngModel)]="modifiedArticle.subTitle" required>
+            </mat-form-field>
+        </p>
+
+        <p class="textarea">
+            <mat-form-field class="text">
+                <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="1" 
+                cdkAutosizeMaxRows="6" placeholder="Contenido" name="content" #content="ngModel" 
+                [(ngModel)]="modifiedArticle.content" required>
+                </textarea>
+            </mat-form-field>
+        </p>  
+
+        <p style="text-align: center;">
+        <input type="submit" value="Modificar articulo"/>
+        </p>
+    </form>
+    
+</div>
+
+
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" style="background-color: palegoldenrod;">
+        <ng-container matColumnDef="id" >
+        <th mat-header-cell *matHeaderCellDef> id </th>
+        <td mat-cell *matCellDef="let article"> {{ article.id }} </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef> title </th>
+        <td mat-cell *matCellDef="let article"> {{ article.title }} </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="subTitle">
+        <th mat-header-cell *matHeaderCellDef> subTitle </th>
+        <td mat-cell *matCellDef="let article"> {{ article.subTitle }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="votes">
+            <th mat-header-cell *matHeaderCellDef> votes </th>
+            <td mat-cell *matCellDef="let article"> {{ article.votes }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="editar">
+            <th mat-header-cell *matHeaderCellDef> editar </th>
+            <td mat-cell *matCellDef="let article">  <a (click)="switchView(article.id)"><img src="../../../assets/edit.png" width="25px"> </a></td>
+        </ng-container>
+
+        <ng-container matColumnDef="borrar">
+            <th mat-header-cell *matHeaderCellDef> borrar </th>
+            <td mat-cell *matCellDef="let article">  <a (click)="deleteArticle(article.id)"><img src="../../../assets/50-512.png" width="25px"></a></td>
+        </ng-container>
+    
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+<div class="col-12" style="text-align: center;">
+    <button mat-raised-button (click)="goToArticles()" style="width: 80%; background-color: black; color:whitesmoke;">Ver todos los articulos con su contenido</button>
+</div>

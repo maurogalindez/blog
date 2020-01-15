@@ -1,0 +1,42 @@
+.link-color {
+    color: #1a73e8;
+  }
+  
+  .content-center {
+    justify-content: center
+  }
+  
+  .padding-top-min {
+    padding-top: 1%;
+  }
+  
+  .padding-bottom-min {
+    padding-bottom: 2%;
+  }
+  
+  .margin-buttons {
+    margin: 1%;
+  }
+  
+  .cursor-pointer {
+    cursor: pointer;
+  }
+  
+  .text-align-center {
+    text-align: center;
+  }
+  
+  .custom-container {
+    margin: 2%;
+  }
+  
+  ::ng-deep.custom-container > mat-dialog-container {
+    box-shadow: none !important;
+    background: transparent !important;
+  }
+  
+  ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
+    stroke: #ff5722;
+  }
+  
+  

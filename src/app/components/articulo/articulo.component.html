@@ -1,0 +1,27 @@
+<div class="col-11-offset-1" *ngIf="article">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>
+                <strong>{{article.title}}</strong>
+            </mat-card-title>
+            <mat-card-subtitle>
+                {{article.subTitle}}
+            </mat-card-subtitle>
+        </mat-card-header>
+        
+        <mat-card-content>
+            <p>{{article.content}}</p>
+        </mat-card-content>
+
+        <mat-card-actions style="text-align: right; margin-right: 2%;" >
+            <button mat-raised-button (click)="goBack()"> Volver a todos los articulos </button>
+        </mat-card-actions>
+        <mat-card-actions style="text-align: right; margin-right: 2%;">
+            <button mat-raised-button (click)="upvote(article)"> Like </button>
+            <button mat-raised-button (click)="downvote(article)"> Dislike </button>      
+    </mat-card-actions> 
+        <mat-card-footer style="text-align: center; color: whitesmoke">
+                Votos: {{article.votes}}
+        </mat-card-footer>
+    </mat-card>
+</div>
