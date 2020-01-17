@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http' 
-import { NewArticle } from '../model/newArticle-model'
+import { Article } from '../model/article-model';
 @Injectable({
   providedIn: 'root'
 })
@@ -20,11 +20,11 @@ export class HttpService {
     return this.http.get<any>(`${this.url}/${id}`);
   }
 
-  createArticle(newArticle: NewArticle) {
+  createArticle(newArticle: Article) {
     return this.http.post(this.url, newArticle);
   }
 
-  modifyArticle(id, article) {
+  modifyArticle(id, article: Article) {
     return this.http.put(`${this.url}/${id}`, article);
   }
 

@@ -14,10 +14,7 @@ export class SpinnerComponent implements OnInit {
   }
 
   openSpinner(): MatDialogRef<SpinnerComponent> {
-    return this.dialogSpinner.open(SpinnerComponent, {
-    panelClass: 'custom-container',
-    disableClose: true
-    });
+    return this.dialogSpinner.open(SpinnerComponent);
   
 }
 

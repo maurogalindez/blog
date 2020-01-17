@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../../services/http.service'
 import { Router } from '@angular/router';
-import { NewArticle } from '../../model/newArticle-model';
 import { NotifierService } from 'angular-notifier';
 import { MatDialog } from '@angular/material';
 import { SpinnerComponent } from '../spinner/spinner.component';
+import { Article } from 'src/app/model/article-model';
 
 
 @Component({
@@ -16,11 +16,11 @@ export class AbmComponent extends SpinnerComponent implements OnInit {
   displayedColumns: string[] = ['id', 'title', 'subTitle', 'votes', 'editar', 'borrar'];
   articles;
   dataSource;
-  newArticle: NewArticle;
+  newArticle: Article;
   status: string
   createOrModify: boolean;
-  article;
-  modifiedArticle;
+  article: Article
+  modifiedArticle: Article;
 
   private readonly notifier: NotifierService;
 
@@ -31,11 +31,11 @@ export class AbmComponent extends SpinnerComponent implements OnInit {
   ) {
     super(dialog);
     this.notifier = notifierService;
-  }
+    this.newArticle = new Article('','','');
+  } 
 
   ngOnInit() {
     this.getArticles();
-    this.newArticle = new NewArticle;
     this.createOrModify = true;
   }
 
@@ -55,6 +55,7 @@ export class AbmComponent extends SpinnerComponent implements OnInit {
   
 
   onSubmit(form) {
+    this.newArticle.votes = 0;
     this.openSpinner();
     if(!this.newArticle.title || !this.newArticle.subTitle || !this.newArticle.content) {
       this.notifier.notify('error','Todos los campos deben ser completados para poder crear un articulo')
@@ -85,7 +86,7 @@ export class AbmComponent extends SpinnerComponent implements OnInit {
 
 
   modifyArticle(form) {
-    this.http.modifyArticle(this.modifiedArticle.id, form.value).subscribe((response) => {
+    this.http.modifyArticle(this.modifiedArticle.id, this.modifiedArticle).subscribe((response) => {
       this.notifier.notify('success', 'El articulo ha sido modificado exitosamente');
       this.getArticles();
       form.reset()
